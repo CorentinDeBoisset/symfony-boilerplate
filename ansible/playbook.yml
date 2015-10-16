@@ -7,6 +7,6 @@
     - server
     - vagrant_local
     - nginx
-    - pgsql
+    - mysql
     - php
     - app

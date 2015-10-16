@@ -9,15 +9,16 @@ vagrant_local:
 nginx:
     install: '1'
     docroot: /vagrant
-    servername: pep-project.dev
-pgsql:
+    servername: myApp.vb
+mysql:
     install: '1'
+    root_password: superAwesomePassword
     database: symfony
-    user: root
-    password: password
+    user: symfony
+    password: superAwesomePassword
     dump: ''
 php:
     install: '1'
     ppa: php5-5.6
-    packages: [php5-fpm, php5-mysql, php5-pgsql]
+    packages: [php5-cli, php5-intl, php5-mcrypt, php5-mysql]
 
