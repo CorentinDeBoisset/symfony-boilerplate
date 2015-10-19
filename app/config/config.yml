@@ -1,7 +1,6 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -78,3 +77,39 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+
+lexik_jwt_authentication:
+    private_key_path: %jwt_private_key_path%
+    public_key_path:  %jwt_public_key_path%
+    pass_phrase:      %jwt_key_pass_phrase%
+    token_ttl:        %jwt_token_ttl%
+
+# FOSRestBundle
+fos_rest:
+    # Pas besoin de protection CSRF vu qu'il n'y a pas de formulaire HTML rendered
+    disable_csrf_role: NONE
+    # Activation des listener
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    routing_loader:
+        include_format: false
+        default_format: json                # Tout est renvoyé en JSON
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
+    format_listener:
+        prefer_extension: false
+        default_priorities:
+            - json
+
+# Nécessaire pour que FOSRestBundle prenne le pas sur la génération des vues
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }
